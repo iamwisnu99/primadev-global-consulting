@@ -1,0 +1,14 @@
+import { localize, getLocale, translateData } from '../../lib/language';
+import Link from 'next/link';
+import { ContentPage } from '../../components/content-page';
+import { pageMetadata } from '../../lib/seo';
+const baseMetadata = pageMetadata('Pelatihan Project Management & Persiapan PMP', 'Bidang pelatihan Primadev: project management, persiapan PMP, cost estimating berbasis AACE, analisis risiko dan jadwal, serta procurement negotiation.', '/pelatihan');
+export default async function Training() {
+  return localize(<ContentPage path="/pelatihan" label="Pelatihan" title="Pelatihan manajemen proyek dan pengembangan profesional" intro="Pembelajaran praktis untuk project manager, Project Management Office, engineer, planner, risk professional, dan tim procurement.">
+    <section><h2>Bidang pelatihan</h2><div className="info-grid training-grid"><article><h3>Project Management Essential</h3><p>Memperkuat pemahaman dasar manajemen proyek sebagai landasan diskusi perencanaan dan pelaksanaan tim.</p></article><article><h3>EPCI Project Management</h3><p>Membahas pengelolaan proyek dalam konteks engineering, procurement, construction, dan installation.</p></article><article><h3>Persiapan PMP</h3><p>Dukungan pembelajaran untuk persiapan sertifikasi PMP. Hubungi tim untuk membahas cakupan dan kebutuhan persiapan Anda.</p></article><article><h3>Cost Estimating</h3><p>Bidang pembelajaran estimasi biaya berbasis AACE, termasuk advanced cost estimating sesuai kebutuhan pembahasan tim.</p></article><article><h3>Analisis risiko dan jadwal</h3><p>Project Risk Analysis dan Schedule Risk Analysis untuk membantu peserta memahami ketidakpastian proyek.</p></article><article><h3>Procurement Negotiation</h3><p>Pengembangan pemahaman negosiasi procurement dalam konteks kebutuhan proyek dan peran tim pengadaan.</p></article></div></section>
+    <section><h2>Menentukan program yang relevan</h2><p>Untuk memulai pembahasan, sampaikan peran peserta, pengalaman tim, tantangan pekerjaan, dan tujuan pembelajaran. Informasi tersebut membantu memperjelas topik yang perlu diprioritaskan.</p><p>Cakupan materi, format, durasi, jadwal, serta biaya perlu dikonfirmasi langsung dengan Primadev. Pelatihan persiapan sertifikasi tidak merupakan jaminan kelulusan atau penerbitan sertifikasi oleh Primadev.</p></section>
+    <section><h2>Pembelajaran dalam konteks proyek</h2><p>Dokumentasi kegiatan Project Management Training &amp; Consulting untuk PT PLN tersedia pada <Link href="/#galeri">galeri kegiatan Primadev</Link>, beserta tautan publikasi sumber. Untuk kebutuhan evaluasi atau pendampingan proyek, lihat juga <Link href="/layanan">layanan konsultasi dan project assurance</Link>.</p><Link className="button primary" href="/kontak">Diskusikan kebutuhan pelatihan</Link></section>
+  </ContentPage>);
+}
+
+export async function generateMetadata() { return translateData(baseMetadata, await getLocale()); }
