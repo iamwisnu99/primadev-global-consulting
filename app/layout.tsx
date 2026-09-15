@@ -1,6 +1,7 @@
 import { localize, getLocale, translateData } from '../lib/language';
 import type { Metadata, Viewport } from 'next';
 import { Geist, Manrope } from 'next/font/google';
+import { Analytics } from '@vercel/analytics/next';
 import './globals.css';
 import { jsonLd, siteName, siteUrl, indexingEnabled, googleSiteVerification } from '../lib/seo';
 
@@ -84,6 +85,7 @@ export default async function RootLayout({
           Lewati ke konten utama
         </a>
         {children}
+        <Analytics />
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: jsonLd(organization) }}

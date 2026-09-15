@@ -1,6 +1,6 @@
 # PT Primadev Global Consulting - Official Website
 
-Repositori resmi website profil perusahaan **PT Primadev Global Consulting**. Proyek ini dibangun menggunakan arsitektur modern Next.js App Router dengan Vite runtime (Vinext), Tailwind CSS v4, TypeScript, serta dukungan penuh untuk containerization Docker dan multi-platform cloud deployment.
+Repositori resmi website profil perusahaan **PT Primadev Global Consulting**. Proyek ini dibangun menggunakan arsitektur modern Next.js App Router, Tailwind CSS v4, TypeScript, serta dukungan penuh untuk containerization Docker dan multi-platform cloud deployment (Vercel, Cloudflare, dan VPS).
 
 ---
 
@@ -24,11 +24,11 @@ Didirikan pada tahun 2013, Primadev membantu organisasi dan korporasi menyelaras
 ## Arsitektur Teknologi
 
 - **Framework**: Next.js App Router (React 19)
-- **Build Engine & Runtime**: Vinext (Vite 8)
-- **Styling**: Tailwind CSS v4
+- **Bundler & Build Engine**: Next.js Compiler (Turbopack)
+- **Styling**: Tailwind CSS v4 (PostCSS)
 - **Bahasa**: TypeScript 5.9
-- **Containerization**: Docker & Docker Compose (Multi-stage build berbasis Node.js 22 Alpine)
-- **Deployment Targets**: Docker / VPS, Cloudflare Pages & Workers, Vercel
+- **Containerization**: Docker & Docker Compose (Multi-stage build berbasis Node.js 22 Alpine Standalone)
+- **Deployment Targets**: Vercel (Native), Docker / VPS, Cloudflare
 
 ---
 
@@ -47,12 +47,12 @@ Didirikan pada tahun 2013, Primadev membantu organisasi dan korporasi menyelaras
 ├── hooks/                # Custom React hooks
 ├── lib/                  # Utilitas SEO, terjemahan, dan konfigurasi data
 ├── public/               # Asset statis, favicon lengkap, manifest, dan gambar
-├── Dockerfile            # Multi-stage production build configuration
+├── Dockerfile            # Multi-stage production build configuration (Standalone)
 ├── docker-compose.yml    # Konfigurasi orkestrasi container Docker
-├── next.config.ts        # Konfigurasi Next.js
+├── next.config.ts        # Konfigurasi Next.js (output standalone)
+├── postcss.config.mjs    # Konfigurasi PostCSS untuk Tailwind CSS v4
 ├── seo.config.json       # Konfigurasi domain kanonikal dan indexing SEO
-├── tsconfig.json         # Konfigurasi TypeScript compiler
-└── vite.config.ts        # Konfigurasi Vite dan Cloudflare plugin
+└── tsconfig.json         # Konfigurasi TypeScript compiler
 ```
 
 ---
@@ -86,7 +86,7 @@ Jalankan perintah berikut untuk memulai server lokal:
 npm run dev
 ```
 
-Buka peramban dan akses alamat: `http://localhost:3000` (atau port yang tertera pada terminal).
+Buka peramban dan akses alamat: `http://localhost:3000`.
 
 ---
 
@@ -94,10 +94,9 @@ Buka peramban dan akses alamat: `http://localhost:3000` (atau port yang tertera 
 
 | Perintah | Deskripsi |
 | :--- | :--- |
-| `npm run dev` | Menjalankan server pengembangan lokal dengan Hot Module Replacement (HMR). |
+| `npm run dev` | Menjalankan server pengembangan lokal dengan Next.js Turbopack HMR. |
 | `npm run build` | Melakukan kompilasi dan optimasi bundle untuk tahap produksi. |
-| `npm run start` | Menjalankan server produksi Vinext pada port 3000. |
-| `npm run start:cloudflare` | Menjalankan simulasi runtime Cloudflare Workers melalui Wrangler. |
+| `npm run start` | Menjalankan server produksi Next.js pada port 3000. |
 | `npm run lint` | Menjalankan pemeriksaan kualitas dan sintaksis kode menggunakan Oxlint. |
 | `npm run format` | Melakukan pemformatan kode secara otomatis menggunakan Oxfmt. |
 
@@ -105,7 +104,7 @@ Buka peramban dan akses alamat: `http://localhost:3000` (atau port yang tertera 
 
 ## Menjalankan Menggunakan Docker
 
-Proyek ini telah dilengkapi dengan konfigurasi Docker multi-stage yang aman, efisien, dan menggunakan pengguna non-root.
+Proyek ini telah dilengkapi dengan konfigurasi Docker multi-stage standalone yang aman, efisien, dan menggunakan pengguna non-root.
 
 ### Menggunakan Docker Compose (Direkomendasikan)
 
@@ -139,18 +138,12 @@ docker compose down
 
 ## Panduan Penerapan (Deployment)
 
-### 1. Vercel
+### 1. Vercel (Native Next.js)
 1. Hubungkan repositori Git ke akun Vercel Anda.
-2. Atur **Build Command** menjadi `npm run build`.
-3. Klik tombol **Deploy**.
+2. Vercel akan otomatis mendeteksi framework **Next.js**.
+3. Klik tombol **Deploy**. Vercel akan secara otomatis membangun dan menerbitkan situs dengan performa global edge.
 
-### 2. Cloudflare Pages / Workers
-Proyek ini terintegrasi secara bawaan dengan Cloudflare Vite Plugin. Penerapan dapat dilakukan melalui Git integration di Cloudflare Dashboard atau perintah CLI Wrangler:
-```bash
-npx wrangler deploy
-```
-
-### 3. Server VPS / Cloud VM (Docker)
+### 2. Server VPS / Cloud VM (Docker)
 Kloning repositori pada server tujuan, sesuaikan file konfigurasi, lalu jalankan:
 ```bash
 docker compose up --build -d
